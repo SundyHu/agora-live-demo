@@ -1,6 +1,10 @@
 <template>
     <div class="container">
         <span>{{tips}}</span>
+
+        <div id="local_stream">
+
+        </div>
     </div>
 </template>
 
@@ -52,6 +56,20 @@
                     //获取设备
                     AgoraRTC.getDevices(devices => {
                         console.log(' devices: ' + JSON.stringify(devices));
+                    });
+
+                    rtc.localStream = AgoraRTC.createStream({
+                        streamID: rtc.params.uid,
+                        audio: true,
+                        video: true,
+                        screen: false
+                    });
+
+                    rtc.localStream.init(() => {
+                        console.log('init local stream success');
+                        self.tips = "初始化本地流成功";
+
+                        rtc.localStream.play('local_stream');
                     })
                 }, function (err) {
                     console.error("client join failed", err)
