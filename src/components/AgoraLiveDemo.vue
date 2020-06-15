@@ -48,6 +48,11 @@
                     rtc.params.uid = uid;
 
                     self.tips = "频道：" + option.channel + " uid: " + uid;
+
+                    //获取设备
+                    AgoraRTC.getDevices(devices => {
+                        console.log(' devices: ' + JSON.stringify(devices));
+                    })
                 }, function (err) {
                     console.error("client join failed", err)
                     self.tips = "加入频道失败：" + err;
